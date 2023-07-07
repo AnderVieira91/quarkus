@@ -1,0 +1,38 @@
+version: "3.3"
+services:
+  quarkus-server:
+    container_name: quarkus-server
+    image: touch/projeto-quarkus:latest
+    depends_on:
+      - quarkus-db
+      - redis
+    networks:
+      - quarkus-network
+    ports:
+      - 48080:8080
+      - 8000:8000
+    env_file:
+      - docker-env
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000
+    command: "run-debug"
+  quarkus-db:
+    container_name: quarkus-db
+    image: postgres:13
+    networks:
+      - quarkus-network
+    env_file:
+      - database-env
+    ports:
+      - 9440:5432
+  redis:
+    image: redis
+    container_name: redis
+    networks:
+      - quarkus-network
+    ports:
+      - 6379:6379
+
+networks:
+  quarkus-network:
+    driver: bridge
