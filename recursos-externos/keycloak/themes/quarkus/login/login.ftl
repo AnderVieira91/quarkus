@@ -7,7 +7,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="${url.resourcesPath}/images/touch.jpeg">
-        <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly/patternfly.css" crossorigin="anonymous" />
         <#if properties.styles?has_content>
             <#list properties.styles?split(' ') as style>
                 <link href="${url.resourcesPath}/${style}" rel="stylesheet" />
