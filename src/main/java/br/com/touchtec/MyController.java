@@ -1,6 +1,5 @@
 package br.com.touchtec;
 
-
 import java.util.List;
 
 import org.apache.camel.Exchange;
@@ -12,6 +11,7 @@ import br.com.touchtec.entityOther.Cliente;
 import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.cache.CacheResult;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -45,6 +45,12 @@ public class MyController {
     @CacheInvalidateAll(cacheName = "helloWorld")
     public String goodBye() {
         return "Good Bey JAKARTA";
+    }
+
+    @GET
+    @Path("/error")
+    public String error() {
+        throw new BadRequestException("ERRRO DE TESTE");
     }
 
     @GET
