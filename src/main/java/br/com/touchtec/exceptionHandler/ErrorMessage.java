@@ -3,16 +3,13 @@ package br.com.touchtec.exceptionHandler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-public class ErrorMessage implements Serializable {
-
-    private static final long serialVersionUID = 1037814914537773004L;
+public class ErrorMessage {
 
     private final String message;
     private final String error;

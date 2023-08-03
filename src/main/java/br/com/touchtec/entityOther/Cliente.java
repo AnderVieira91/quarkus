@@ -1,7 +1,6 @@
 package br.com.touchtec.entityOther;
 
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,9 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "CLIENTE")
-public class Cliente implements Serializable {
-
-    private static final long serialVersionUID = -1524145962935408496L;
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CLIENTE")

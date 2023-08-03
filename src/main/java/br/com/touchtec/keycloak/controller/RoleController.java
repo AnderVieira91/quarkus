@@ -1,38 +1,42 @@
 package br.com.touchtec.keycloak.controller;
 
 
-import org.jboss.resteasy.reactive.NoCache;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.quarkus.security.Authenticated;
-import io.quarkus.security.identity.SecurityIdentity;
-import jakarta.inject.Inject;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 
-@Path("/keycloak")
+@Path("/api")
+@Produces(MediaType.APPLICATION_JSON)
 @Authenticated
-@NoCache
 public class RoleController {
 
-    @Inject
-    private SecurityIdentity securityIdentity;
-
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public User getUsername() {
-        User user = new User();
-        user.name = this.securityIdentity.getPrincipal().getName();
-        user.email = "teste@teste.com";
-        return user;
+    @Path("/tabela")
+    public List<Linha> getLinhas(@BeanParam TabelaParams tabelaParam) {
+        List<Linha> tabela = new ArrayList<>();
+
+        for (int i = 1; i <= tabelaParam.getQntPorPagina(); i++) {
+            Linha linha = new Linha();
+            linha.pagina = tabelaParam.getPagina();
+            linha.valor = tabelaParam.getPagina().toString() + "-" + i;
+            linha.bool = i % 2 == 0;
+            tabela.add(linha);
+        }
+
+        return tabela;
     }
 
-
-    public class User {
-        public String name;
-        public String email;
+    public class Linha {
+        public Integer pagina;
+        public String valor;
+        public boolean bool;
     }
 
 }
